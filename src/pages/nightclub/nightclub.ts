@@ -1,22 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
-/*
-  Generated class for the Nightclub page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-nightclub',
   templateUrl: 'nightclub.html'
 })
 export class NightclubPage {
+  item: FirebaseObjectObservable<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NightclubPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, af: AngularFire) {
+    this.item = af.database.object('/nightclubs/0'); //mirando el primer objeto
   }
 
 }

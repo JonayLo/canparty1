@@ -6,12 +6,12 @@ import {NightclubsPage} from "../pages/nightclubs/nightclubs";
 import {EventsPage} from "../pages/events/events";
 import {FavPage} from "../pages/fav/fav";
 
-
+import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class AppComponent {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
