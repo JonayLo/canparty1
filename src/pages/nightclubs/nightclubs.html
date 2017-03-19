@@ -14,5 +14,36 @@
 
 
 <ion-content padding>
+  <ion-card *ngFor="let item of items | async">
+    <img src="{{item.img}}"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{item.name}}
+      </ion-card-title>
+      <p>
+        {{item.description}}
+      </p>
+    </ion-card-content>
+    <ion-row class="row">
+      <ion-col class="col">
+        <button clear color="primary" ion-button small icon-left>
+          <span class="button-inner">
+            <ion-icon name="star" role="img" class="icon">
+              Fav
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+      <ion-col class="col" text-right>
+        <button clear color="primary" ion-button small icon-right>
+          <span class="button-inner">
+            <ion-icon name="share-alt" role="img" class="icon">
+              Share
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
 </ion-content>

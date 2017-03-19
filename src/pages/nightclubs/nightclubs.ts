@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 /*
   Generated class for the Nightclubs page.
 
@@ -12,8 +12,10 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'nightclubs.html'
 })
 export class NightclubsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  items: FirebaseListObservable<any[]>;
+  constructor(public navCtrl: NavController, public navParams: NavParams, af:AngularFire) {
+    this.items = af.database.list('/nightclubs');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NightclubsPage');
