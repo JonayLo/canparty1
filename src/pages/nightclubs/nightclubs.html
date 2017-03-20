@@ -5,11 +5,14 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Nightclubs</ion-title>
+    <ion-row>
+      <ion-title>Nightclubs</ion-title>
+      <button ion-button icon-only (click)="nightclubTapped()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-row>
   </ion-navbar>
-
 </ion-header>
 
 

@@ -8,6 +8,7 @@ import {FavPage} from "../pages/fav/fav";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from 'angularfire2';
+import {AddNightclubPage} from "../pages/add-nightclub/add-nightclub";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB_LSza8qqhf9_DoJortBhvLqqkTNNQ4LE',
@@ -23,7 +24,8 @@ export const firebaseConfig = {
     HomePage,
     NightclubsPage,
     EventsPage,
-    FavPage
+    FavPage,
+    AddNightclubPage
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
@@ -36,7 +38,8 @@ export const firebaseConfig = {
     HomePage,
     NightclubsPage,
     EventsPage,
-    FavPage
+    FavPage,
+    AddNightclubPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
