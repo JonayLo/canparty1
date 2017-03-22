@@ -14,7 +14,7 @@ import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = NightclubsPage;
 
   pages: Array<{title: string, component: any}>;
 

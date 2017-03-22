@@ -16,8 +16,34 @@ export class AddNightclubPage {
     });
   }
   logForm(){
-    console.log(this.nightclub.value)
+    console.log(this.nightclub.value);
   }
+
+  renderImage(evt) {
+    // Always return a array of files but we only permit one
+    let file = evt.target.files[0];
+
+    // Only process image files.
+    if (!file.type.match('image.*')) {
+      return;
+    }
+
+    let reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Render thumbnail.
+        let span = ['<img class="thumb" src="', e.target.result,
+          '" title="', encodeURI(theFile.name), '"/>'].join('');
+        document.getElementById('image_preview').innerHTML = span;
+      };
+    })(file);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(file);
+  }
+
 
 
   uploadImage(name, data) {

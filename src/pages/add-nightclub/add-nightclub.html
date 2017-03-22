@@ -15,16 +15,16 @@
 <ion-content padding>
   <form [formGroup]="nightclub" (ngSubmit)="logForm()">
     <ion-item>
+      <ion-row><output id="image_preview"></output></ion-row>
+      <ion-row><input type="file" id="image" (change)='renderImage($event)'><br></ion-row>
+    </ion-item>
+    <ion-item>
       <ion-label>Title</ion-label>
       <ion-input type="text" formControlName="title"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Description</ion-label>
       <ion-textarea formControlName="description"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label>Image</ion-label>
-      <ion-input type="file" formControlName="image"></ion-input>
     </ion-item>
     <button ion-button type="submit" [disabled]="!nightclub.valid">Submit</button>
   </form>
