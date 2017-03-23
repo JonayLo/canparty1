@@ -15,12 +15,18 @@
 <ion-content padding>
   <form [formGroup]="nightclub" (ngSubmit)="logForm()">
     <ion-item>
-      <ion-row><output id="image_preview"></output></ion-row>
+      <ion-row><canvas id="image_preview" width="294" height="205"
+              style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.</canvas></ion-row>
       <ion-row><input type="file" id="image" (change)='renderImage($event)'><br></ion-row>
     </ion-item>
     <ion-item>
-      <ion-label>Title</ion-label>
-      <ion-input type="text" formControlName="title"></ion-input>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-input type="text" formControlName="location"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Description</ion-label>

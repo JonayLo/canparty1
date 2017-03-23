@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
+
 
 
 @Component({
@@ -7,20 +9,35 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddNightclubPage {
   private nightclub : FormGroup;
+  private firebase;
 
-  constructor( private formBuilder: FormBuilder ) {
+  constructor( private formBuilder: FormBuilder, af:AngularFire ) {
     this.nightclub = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: [''],
-      image: [''],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      location: ['', Validators.required],
+      img: ['', Validators.required],
     });
+
+    this.firebase = af.database.list('/nightclubs');
   }
+
   logForm(){
-    console.log(this.nightclub.value);
+    // Get image from canvas
+    let canvas = <HTMLCanvasElement>document.getElementById('image_preview');
+    this.nightclub.controls['img'].setValue(canvas.toDataURL());
+
+    this.firebase.push({
+      "date" : "2017-1-1",
+      "description" : this.nightclub.value.description,
+      "img" : this.nightclub.value.img,
+      "location" : this.nightclub.value.location,
+      "name" : this.nightclub.value.name
+    });
   }
 
   renderImage(evt) {
-    // Always return a array of files but we only permit one
+    // Always return a array of files but we only permit one.
     let file = evt.target.files[0];
 
     // Only process image files.
@@ -33,15 +50,20 @@ export class AddNightclubPage {
     // Closure to capture the file information.
     reader.onload = (function(theFile) {
       return function(e) {
-        // Render thumbnail.
-        let span = ['<img class="thumb" src="', e.target.result,
-          '" title="', encodeURI(theFile.name), '"/>'].join('');
-        document.getElementById('image_preview').innerHTML = span;
+        // Render canvas.
+        let img = document.createElement('img');
+        img.src = e.target.result;
+        img.onload = function () {
+          let canvas = <HTMLCanvasElement>document.getElementById('image_preview');
+          let ctx = canvas.getContext('2d');
+          ctx.drawImage(img,0,0,294,205);
+        };
       };
     })(file);
 
     // Read in the image file as a data URL.
     reader.readAsDataURL(file);
+    this.nightclub.controls['img'].setValue("NO IMPORTANT!");
   }
 
 
