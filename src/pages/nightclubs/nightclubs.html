@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-row>
       <ion-title>Nightclubs</ion-title>
-      <button ion-button icon-only (click)="nightclubTapped()">
+      <button ion-button icon-only (click)="addNightclubTapped()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-row>
@@ -18,7 +18,7 @@
 
 <ion-content padding>
   <ion-card *ngFor="let item of items | async">
-    <img src="{{item.img}}"/>
+    <img src="{{item.img}}" (click)="nightclubTapped(item.key)"/>
     <ion-card-content>
       <ion-card-title>
         {{item.name}}

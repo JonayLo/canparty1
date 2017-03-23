@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import {NavController} from "ionic-angular";
 
 
 
@@ -11,7 +12,7 @@ export class AddNightclubPage {
   private nightclub : FormGroup;
   private firebase;
 
-  constructor( private formBuilder: FormBuilder, af:AngularFire ) {
+  constructor( private formBuilder: FormBuilder, af:AngularFire, public navCtrl: NavController) {
     this.nightclub = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -19,7 +20,7 @@ export class AddNightclubPage {
       img: ['', Validators.required],
     });
 
-    this.firebase = af.database.list('/nightclubs');
+    this.firebase = af.database;
   }
 
   logForm(){
@@ -27,12 +28,16 @@ export class AddNightclubPage {
     let canvas = <HTMLCanvasElement>document.getElementById('image_preview');
     this.nightclub.controls['img'].setValue(canvas.toDataURL());
 
-    this.firebase.push({
+    this.firebase.list('/nightclubs').push({
       "date" : "2017-1-1",
       "description" : this.nightclub.value.description,
       "img" : this.nightclub.value.img,
       "location" : this.nightclub.value.location,
       "name" : this.nightclub.value.name
+    }).then((item) => {
+      this.firebase.object('/nightclubs/'+item.key).update({
+        "key" : item.key
+      }).then(() => { this.navCtrl.pop(); });
     });
   }
 
@@ -65,22 +70,4 @@ export class AddNightclubPage {
     reader.readAsDataURL(file);
     this.nightclub.controls['img'].setValue("NO IMPORTANT!");
   }
-
-
-
-  uploadImage(name, data) {
-    let promise = new Promise((res,rej) => {
-      let fileName = name + ".jpg";
-      let uploadTask = firebase.storage().ref(`/nightclubs/${fileName}`).put(data);
-      uploadTask.on('state_changed', function(snapshot) {
-      }, function(error) {
-        rej(error);
-      }, function() {
-        var downloadURL = uploadTask.snapshot.downloadURL;
-        res(downloadURL);
-      });
-    });
-    return promise;
-  }
-
 }

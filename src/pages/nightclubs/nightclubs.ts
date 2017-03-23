@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import {AddNightclubPage} from "../add-nightclub/add-nightclub";
+import {NightclubPage} from "../nightclub/nightclub";
 /*
   Generated class for the Nightclubs page.
 
@@ -18,7 +19,11 @@ export class NightclubsPage {
     this.items = af.database.list('/nightclubs');
   }
 
-  nightclubTapped() {
+  addNightclubTapped() {
     this.navCtrl.push(AddNightclubPage);
+  }
+
+  nightclubTapped(nightclub_id) {
+    this.navCtrl.push(NightclubPage, { nightclub_id: nightclub_id });
   }
 }

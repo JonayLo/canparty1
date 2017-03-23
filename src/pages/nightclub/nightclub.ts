@@ -10,7 +10,7 @@ export class NightclubPage {
   item: FirebaseObjectObservable<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, af: AngularFire) {
-    this.item = af.database.object('/nightclubs/0'); //mirando el primer objeto
+    this.item = af.database.object('/nightclubs/' + this.navParams.get('nightclub_id'));
   }
 
 }

@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AppComponent } from './app.component';
 import { HomePage} from '../pages/home/home';
 import {NightclubsPage} from "../pages/nightclubs/nightclubs";
+import {NightclubPage} from "../pages/nightclub/nightclub";
 import {EventsPage} from "../pages/events/events";
 import {FavPage} from "../pages/fav/fav";
 
@@ -23,6 +24,7 @@ export const firebaseConfig = {
     AppComponent,
     HomePage,
     NightclubsPage,
+    NightclubPage,
     EventsPage,
     FavPage,
     AddNightclubPage
@@ -37,6 +39,7 @@ export const firebaseConfig = {
     AppComponent,
     HomePage,
     NightclubsPage,
+    NightclubPage,
     EventsPage,
     FavPage,
     AddNightclubPage
