@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
+import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
 
 @Component({
   selector: 'page-nightclub',
