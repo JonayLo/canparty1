@@ -8,8 +8,9 @@ import {EventsPage} from "../pages/events/events";
 import {FavPage} from "../pages/fav/fav";
 
 import { BrowserModule } from '@angular/platform-browser';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import {AddNightclubPage} from "../pages/add-nightclub/add-nightclub";
+import {AuthenticationPage} from "../pages/authentication/authentication";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB_LSza8qqhf9_DoJortBhvLqqkTNNQ4LE',
@@ -17,6 +18,11 @@ export const firebaseConfig = {
   databaseURL: 'https://canparty2.firebaseio.com',
   storageBucket: 'canparty2.appspot.com',
   messagingSenderId: '79348211035'
+};
+
+const firebaseAuthConfig = {
+  provider: AuthProviders.Custom,
+  method: AuthMethods.Password
 };
 
 @NgModule({
@@ -27,12 +33,14 @@ export const firebaseConfig = {
     NightclubPage,
     EventsPage,
     FavPage,
-    AddNightclubPage
+    AddNightclubPage,
+    AuthenticationPage
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
     BrowserModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +50,8 @@ export const firebaseConfig = {
     NightclubPage,
     EventsPage,
     FavPage,
-    AddNightclubPage
+    AddNightclubPage,
+    AuthenticationPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import {AddNightclubPage} from "../add-nightclub/add-nightclub";
 import {NightclubPage} from "../nightclub/nightclub";
+import {AuthenticationPage} from "../authentication/authentication";
 /*
   Generated class for the Nightclubs page.
 
@@ -15,7 +16,7 @@ import {NightclubPage} from "../nightclub/nightclub";
 })
 export class NightclubsPage {
   items: FirebaseListObservable<any[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, af:AngularFire) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire) {
     this.items = af.database.list('/nightclubs');
   }
 
@@ -25,5 +26,9 @@ export class NightclubsPage {
 
   nightclubTapped(nightclub_id) {
     this.navCtrl.push(NightclubPage, { nightclub_id: nightclub_id });
+  }
+
+  authenticationTapped(nightclub_id) {
+    this.navCtrl.push(AuthenticationPage);
   }
 }

@@ -11,8 +11,9 @@ import {NavController} from "ionic-angular";
 export class AddNightclubPage {
   private nightclub : FormGroup;
   private firebase;
+  private auth;
 
-  constructor( private formBuilder: FormBuilder, af:AngularFire, public navCtrl: NavController) {
+  constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController) {
     this.nightclub = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -21,6 +22,7 @@ export class AddNightclubPage {
     });
 
     this.firebase = af.database;
+    this.af.auth.subscribe(auth => {this.auth = auth.uid;});
   }
 
   logForm(){
@@ -33,12 +35,23 @@ export class AddNightclubPage {
       "description" : this.nightclub.value.description,
       "img" : this.nightclub.value.img,
       "location" : this.nightclub.value.location,
-      "name" : this.nightclub.value.name
+      "name" : this.nightclub.value.name,
+      "user" : this.auth
     }).then((item) => {
       this.firebase.object('/nightclubs/'+item.key).update({
         "key" : item.key
-      }).then(() => { this.navCtrl.pop(); });
+      });
+
+      let url = '/users/' + this.auth;
+      this.firebase.object(url+'/0').take(1).subscribe(snapshot => {
+        snapshot.$value++;
+        this.firebase.object(url + '/' + snapshot.$value).set(item.key);
+        this.firebase.object(url+'/0').set(snapshot.$value);
+      });
+      this.navCtrl.pop();
     });
+
+    this.nightclub.controls['img'].setValue("");
   }
 
   renderImage(evt) {

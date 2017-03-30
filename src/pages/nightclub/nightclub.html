@@ -7,7 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{ (item | async)?.name }}</ion-title>
+    <ion-row>
+      <ion-title>{{ (item | async)?.name }}</ion-title>
+      <button *ngIf="(item | async)?.user == (af.auth | async)?.uid" ion-button icon-only (click)="authenticationTapped()">
+        <ion-icon name="create"></ion-icon>
+      </button>
+    </ion-row>
   </ion-navbar>
 
 </ion-header>
