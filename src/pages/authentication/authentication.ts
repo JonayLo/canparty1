@@ -18,11 +18,21 @@ export class AuthenticationPage {
   }
 
   login() {
-    // this.af.auth.login();
     this.af.auth.login(this.form.value).then(() => {this.navCtrl.pop();});
   }
 
   logout() {
     this.af.auth.logout();
   }
+
+  signup() {
+    this.af.auth.createUser(this.form.value)
+      .then((userRecord) => {
+        this.af.database.object('/users/' + userRecord.uid +'/0').set(0).then(() => {this.navCtrl.pop();});
+      })
+      .catch((error) => {
+        console.log("Error creating new user:", error);
+      });
+  }
+
 }
