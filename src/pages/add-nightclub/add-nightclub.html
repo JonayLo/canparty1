@@ -8,8 +8,9 @@
 
   <ion-navbar>
     <ion-row>
-      <ion-title>Adding Nightclub</ion-title>
-      <button *ngIf="(af.auth | async)?.uid" ion-button icon-only color="danger" (click)="addNightclubTapped()">
+      <ion-title *ngIf="!edit">Adding Nightclub</ion-title>
+      <ion-title *ngIf="edit">Editing Nightclub</ion-title>
+      <button *ngIf="edit" ion-button icon-only color="danger" (click)="addNightclubTapped()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-row>
