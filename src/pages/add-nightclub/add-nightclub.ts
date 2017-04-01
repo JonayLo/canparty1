@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 import {NavController, NavParams, AlertController} from 'ionic-angular';
+import {isUndefined} from "ionic-angular/util/util";
 
 
 
@@ -22,7 +23,7 @@ export class AddNightclubPage {
     this.af.auth.subscribe(auth => {this.auth = auth.uid;});
 
     this.nightclub_id = this.navParams.get('nightclub_id');
-    if(this.nightclub_id == undefined){
+    if(isUndefined(this.nightclub_id)){
       this.edit = false;
       this.nightclub = this.formBuilder.group({
         name: ['', Validators.required],
@@ -122,7 +123,7 @@ export class AddNightclubPage {
     let file = evt.target.files[0];
 
     // Only process image files.
-    if (!file.type.match('image.*')) {
+    if (isUndefined(file) || !file.type.match('image.*')) {
       return;
     }
 
