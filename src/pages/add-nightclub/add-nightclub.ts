@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, AlertController} from 'ionic-angular';
 
 
 
@@ -16,7 +16,8 @@ export class AddNightclubPage {
   private nightclub_id;
   edit;
 
-  constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController, private navParams: NavParams) {
+  constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController,
+               private navParams: NavParams, public alertCtrl: AlertController) {
     this.firebase = af.database;
     this.af.auth.subscribe(auth => {this.auth = auth.uid;});
 
@@ -94,6 +95,26 @@ export class AddNightclubPage {
     }).then((item) => {this.navCtrl.pop();});
 
     this.nightclub.controls['img'].setValue("");
+  }
+
+  removeNightclub() {
+    let confirm = this.alertCtrl.create({
+      title: 'Delete this nightclub?',
+      message: 'You will not be able to recover it once deleted.',
+      buttons: [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+            this.firebase.object('/nightclubs/' + this.nightclub_id).remove();
+            this.navCtrl.popToRoot();
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
   renderImage(evt) {

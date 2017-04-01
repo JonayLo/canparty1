@@ -10,7 +10,7 @@
     <ion-row>
       <ion-title *ngIf="!edit">Adding Nightclub</ion-title>
       <ion-title *ngIf="edit">Editing Nightclub</ion-title>
-      <button *ngIf="edit" ion-button icon-only color="danger" (click)="addNightclubTapped()">
+      <button *ngIf="edit" ion-button icon-only color="danger" (click)="removeNightclub()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-row>
