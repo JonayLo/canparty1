@@ -19,7 +19,11 @@ export class AuthenticationPage {
   }
 
   login() {
-    this.af.auth.login(this.form.value).then(() => {this.navCtrl.pop();});
+    this.af.auth.login(this.form.value)
+      .then(() => {this.navCtrl.pop();
+    })
+      .catch((error) => { this.errorAlert(error);
+      });
   }
 
   logout() {
@@ -41,9 +45,17 @@ export class AuthenticationPage {
       .then((userRecord) => {
         this.af.database.object('/users/' + userRecord.uid +'/0').set(0).then(() => {this.navCtrl.pop();});
       })
-      .catch((error) => {
-        console.log("Error creating new user:", error);
+      .catch((error) => { this.errorAlert(error);
       });
+  }
+
+  errorAlert(error){
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      message: error.message,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
