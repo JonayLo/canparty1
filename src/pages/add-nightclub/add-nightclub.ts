@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
-import {NavController, NavParams, AlertController} from 'ionic-angular';
+import {NavController, NavParams, AlertController, ViewController, ModalController} from 'ionic-angular';
 import {isUndefined} from "ionic-angular/util/util";
-
-
 
 
 @Component({
@@ -18,7 +16,7 @@ export class AddNightclubPage {
   edit;
 
   constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController,
-               private navParams: NavParams, public alertCtrl: AlertController) {
+               private navParams: NavParams, public alertCtrl: AlertController, public modalCtrl: ModalController) {
     this.firebase = af.database;
     this.af.auth.subscribe(auth => {this.auth = auth.uid;});
 
@@ -118,6 +116,11 @@ export class AddNightclubPage {
     confirm.present();
   }
 
+  openGallery() {
+    let modal = this.modalCtrl.create(GalleryModal);
+    modal.present();
+  }
+
   renderImage(evt) {
     // Always return a array of files but we only permit one.
     let file = evt.target.files[0];
@@ -157,4 +160,80 @@ export class AddNightclubPage {
       ctx.drawImage(img,0,0,294,205);
     };
   }
+}
+
+
+@Component({
+  template: `
+    <ion-header>
+      <ion-navbar>
+        <ion-row>
+          <ion-title>Gallery</ion-title>
+          <button ion-button icon-only (click)="file.click()">
+            <ion-icon name="image"></ion-icon>
+          </button>
+          <button ion-button icon-only (click)="closeGallery()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-row>
+      </ion-navbar>
+    </ion-header>
+
+    <ion-content padding>
+      <input type="file" #file (change)='renderImage($event)' hidden multiple>
+      <div id="image-list" center text-center></div>
+    </ion-content>
+`
+})
+export class GalleryModal {
+  images: any[];
+  newItem: string = "";
+
+  constructor(private nav:NavController, private viewCtrl:ViewController) {
+
+  }
+
+  closeGallery(){
+    this.viewCtrl.dismiss();
+    // this.newItem += '<ion-card> ' +
+    //   '<img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/> ' +
+    //   '</ion-card>';
+  }
+
+  renderImage(evt) {
+  let files = evt.target.files; // FileList object
+
+  // Loop through the FileList and render image files as thumbnails.
+  for (let i = 0, f; f = files[i]; i++) {
+
+    // Only process image files.
+    if (!f.type.match('image.*')) {
+      continue;
+    }
+
+    let reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Render canvas.
+        let img = document.createElement('img');
+        img.src = e.target.result;
+        img.onload = function () {
+          let canv = document.createElement('canvas');
+          canv.className = 'image_preview';
+          canv.height = 205;
+          canv.width = 294;
+          document.getElementById("image-list").appendChild(canv);
+          let ctx = canv.getContext('2d');
+          ctx.drawImage(img,0,0,294,205);
+        };
+      };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
+  }
+}
+
 }
