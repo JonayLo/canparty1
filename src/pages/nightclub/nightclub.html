@@ -54,4 +54,24 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <div *ngIf="gallery_exists">
+    <div class="gallery-card-background">
+      <ion-card (click)="showGallery()">
+        <img src="{{(gallery | async)[0].$value}}"/>
+        <div *ngIf="(gallery | async).length > 1 && !show_gallery">
+          <div class="card-title">Gallery</div>
+          <div class="card-subtitle">{{ (gallery | async).length }} Photos</div>
+        </div>
+      </ion-card>
+    </div>
+    <div *ngIf="(gallery | async).length > 1 && show_gallery">
+      <div *ngFor="let photo of gallery | async | slice:1">
+        <ion-card>
+          <img src="{{photo.$value}}"/>
+          <div *ngIf="(gallery | async).length > 1"></div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
 </ion-content>

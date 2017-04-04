@@ -9,7 +9,7 @@ import {FavPage} from "../pages/fav/fav";
 
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import {AddNightclubPage} from "../pages/add-nightclub/add-nightclub";
+import {AddNightclubPage, GalleryModal} from "../pages/add-nightclub/add-nightclub";
 import {AuthenticationPage} from "../pages/authentication/authentication";
 
 export const firebaseConfig = {
@@ -34,7 +34,8 @@ const firebaseAuthConfig = {
     EventsPage,
     FavPage,
     AddNightclubPage,
-    AuthenticationPage
+    AuthenticationPage,
+    GalleryModal
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
@@ -51,7 +52,8 @@ const firebaseAuthConfig = {
     EventsPage,
     FavPage,
     AddNightclubPage,
-    AuthenticationPage
+    AuthenticationPage,
+    GalleryModal
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
