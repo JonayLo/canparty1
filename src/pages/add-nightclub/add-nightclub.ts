@@ -3,6 +3,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 import {NavController, NavParams, AlertController, ViewController, ModalController} from 'ionic-angular';
 import {isUndefined} from "ionic-angular/util/util";
+import 'rxjs/add/operator/take'
 
 
 @Component({
@@ -134,7 +135,7 @@ export class AddNightclubPage {
   }
 
   openGallery() {
-    let modal = this.modalCtrl.create(GalleryModal);
+    let modal = this.modalCtrl.create(GalleryModal, {"nightclub_id": this.nightclub_id});
     modal.onDidDismiss(data => {
       this.gallery = data;
     });
@@ -206,9 +207,20 @@ export class AddNightclubPage {
 `
 })
 export class GalleryModal {
+  private nightclub_id;
 
-  constructor(private nav:NavController, private viewCtrl:ViewController) {
+  constructor(private nav:NavController, private viewCtrl:ViewController, private af:AngularFire,
+              private navParams: NavParams) {
+    this.nightclub_id = this.navParams.get('nightclub_id');
 
+    af.database.object('/nightclubs/' + this.nightclub_id + '/gallery/0').take(1).subscribe((obj) => {
+      if(obj.$exists()){
+        let gallery = af.database.list('/nightclubs/' + this.nightclub_id + '/gallery');
+        gallery.take(1).subscribe(items => {
+          items.forEach(item => { this.renderImageFromURL(item) });
+        });
+      }
+    });
   }
 
   closeGallery(){
@@ -221,39 +233,54 @@ export class GalleryModal {
   }
 
   renderImage(evt) {
-  let files = evt.target.files; // FileList object
+    let files = evt.target.files; // FileList object
 
-  // Loop through the FileList and render image files as thumbnails.
-  for (let i = 0, f; f = files[i]; i++) {
+    // Loop through the FileList and render image files as thumbnails.
+    for (let i = 0, f; f = files[i]; i++) {
 
-    // Only process image files.
-    if (!f.type.match('image.*')) {
-      continue;
-    }
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
 
-    let reader = new FileReader();
+      let reader = new FileReader();
 
-    // Closure to capture the file information.
-    reader.onload = (function(theFile) {
-      return function(e) {
-        // Render canvas.
-        let img = document.createElement('img');
-        img.src = e.target.result;
-        img.onload = function () {
-          let canv = document.createElement('canvas');
-          canv.className = 'image_preview';
-          canv.height = 205;
-          canv.width = 294;
-          document.getElementById("image-list").appendChild(canv);
-          let ctx = canv.getContext('2d');
-          ctx.drawImage(img,0,0,294,205);
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render canvas.
+          let img = document.createElement('img');
+          img.src = e.target.result;
+          img.onload = function () {
+            let canv = document.createElement('canvas');
+            canv.onclick = function() { this.parentNode.removeChild(this) };
+            canv.className = 'image_preview';
+            canv.height = 205;
+            canv.width = 294;
+            document.getElementById("image-list").appendChild(canv);
+            let ctx = canv.getContext('2d');
+            ctx.drawImage(img,0,0,294,205);
+          };
         };
-      };
-    })(f);
+      })(f);
 
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
   }
-}
 
+  renderImageFromURL(item){
+    let img = document.createElement('img');
+    img.src = item.$value;
+    img.onload = function () {
+      let canv = document.createElement('canvas');
+      canv.onclick = function() { this.parentNode.removeChild(this) };
+      canv.className = 'image_preview';
+      canv.height = 205;
+      canv.width = 294;
+      document.getElementById("image-list").appendChild(canv);
+      let ctx = canv.getContext('2d');
+      ctx.drawImage(img,0,0,294,205);
+    };
+  }
 }
