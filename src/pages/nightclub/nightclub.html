@@ -55,7 +55,7 @@
     </ion-row>
   </ion-card>
 
-  <div *ngIf="(gallery | async)">
+  <div *ngIf="gallery_exists">
     <div class="gallery-card-background">
       <ion-card (click)="showGallery()">
         <img src="{{(gallery | async)[0].$value}}"/>

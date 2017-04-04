@@ -14,6 +14,8 @@ export class AddNightclubPage {
   private auth;
   private nightclub_id;
   edit;
+  private key;
+  private gallery: any[];
 
   constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController,
                private navParams: NavParams, public alertCtrl: AlertController, public modalCtrl: ModalController) {
@@ -38,6 +40,7 @@ export class AddNightclubPage {
           location: [snapshot.location, Validators.required],
           img: [snapshot.img, Validators.required],
         });
+        this.key = snapshot.key;
         this.renderImageFromURL();
       });
     }
@@ -68,6 +71,12 @@ export class AddNightclubPage {
         "key" : item.key
       });
 
+      // Update gallery
+      if(!isUndefined(this.gallery)){
+        this.firebase.object('/nightclubs/' + item.key + '/gallery').set(this.gallery);
+      }
+
+      // Update list of user nightclubs
       let url = '/users/' + this.auth;
       this.firebase.object(url+'/0').take(1).subscribe(snapshot => {
         snapshot.$value++;
@@ -91,7 +100,15 @@ export class AddNightclubPage {
       "img" : this.nightclub.value.img,
       "location" : this.nightclub.value.location,
       "name" : this.nightclub.value.name,
-    }).then((item) => {this.navCtrl.pop();});
+    }).then(() => {
+
+      // Update gallery
+      if(!isUndefined(this.gallery)){
+        this.firebase.object('/nightclubs/' + this.key + '/gallery').set(this.gallery);
+      }
+
+      this.navCtrl.pop();
+    });
 
     this.nightclub.controls['img'].setValue("");
   }
@@ -118,6 +135,9 @@ export class AddNightclubPage {
 
   openGallery() {
     let modal = this.modalCtrl.create(GalleryModal);
+    modal.onDidDismiss(data => {
+      this.gallery = data;
+    });
     modal.present();
   }
 
@@ -186,18 +206,18 @@ export class AddNightclubPage {
 `
 })
 export class GalleryModal {
-  images: any[];
-  newItem: string = "";
 
   constructor(private nav:NavController, private viewCtrl:ViewController) {
 
   }
 
   closeGallery(){
-    this.viewCtrl.dismiss();
-    // this.newItem += '<ion-card> ' +
-    //   '<img src="https://ionicframework.com/dist/preview-app/www/assets/img/card-saopaolo.png"/> ' +
-    //   '</ion-card>';
+    let images = [];
+    for(let i = 0; i < document.getElementsByClassName("image_preview").length; i++){
+      let canvas = <HTMLCanvasElement>document.getElementsByClassName("image_preview")[i];
+      images.push(canvas.toDataURL());
+    }
+    this.viewCtrl.dismiss(images);
   }
 
   renderImage(evt) {
