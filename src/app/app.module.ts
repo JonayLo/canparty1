@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import {AddNightclubPage, GalleryModal} from "../pages/add-nightclub/add-nightclub";
 import {AuthenticationPage} from "../pages/authentication/authentication";
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB_LSza8qqhf9_DoJortBhvLqqkTNNQ4LE',
@@ -41,7 +42,8 @@ const firebaseAuthConfig = {
     IonicModule.forRoot(AppComponent),
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
