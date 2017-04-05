@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
-import {AddNightclubPage} from "../add-nightclub/add-nightclub";
-import {NightclubPage} from "../nightclub/nightclub";
-import {Storage} from "@ionic/storage";
-import {AuthenticationPage} from "../authentication/authentication";
+import { AddNightclubPage } from "../add-nightclub/add-nightclub";
+import { NightclubPage } from "../nightclub/nightclub";
+import { Storage } from "@ionic/storage";
+import { AuthenticationPage } from "../authentication/authentication";
 
 /*
   Generated class for the Nightclubs page.
@@ -18,7 +18,7 @@ import {AuthenticationPage} from "../authentication/authentication";
 })
 export class NightclubsPage {
   items: FirebaseListObservable<any[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af:AngularFire, public storage:Storage, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public storage: Storage, public toastCtrl: ToastController) {
     this.items = af.database.list('/nightclubs');
   }
 
@@ -35,38 +35,50 @@ export class NightclubsPage {
   }
 
   isFavClub(club_id) {
-    let bool;
+    return new Promise(resolve => {
       this.storage.ready().then(() => {
-      this.storage.get('fav'+club_id).then((val) => { bool = this.equal(val, club_id)});  
+        let bol;
+        this.storage.get('fav' + club_id).then((val) => { bol = this.equal(val, club_id) ; 
+        resolve(bol)});
+      });
     });
   }
 
   equal(club_id, val) {
-    console.log(val +"   "+ club_id)
-    if (val.toString() == club_id.toString()) {
-      return true;
+    if (val == null) {
+      return false;
     }
-    return false;
+    if (val == club_id) {
+      console.log("hola");
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  toggleFav(nightclub_id){
-    if (this.isFavClub(nightclub_id)) {
-       this.storage.ready().then(() => {
-        this.storage.remove("fav"+nightclub_id);
-        this.presentToast("Nightclub removed from favorites");
-        return;
-      });
-    }
-    this.storage.ready().then(() => {
-        this.storage.set("fav"+nightclub_id, nightclub_id);
-        this.presentToast("Nightclub added to favorites");
+  toggleFav(nightclub_id) {
+    this.isFavClub(nightclub_id).then((val) => {
+      if (val) {
+        this.storage.ready().then(() => {
+          this.storage.remove("fav" + nightclub_id);
+          this.presentToast("Nightclub removed from favorites");
+          return;
+        });
+      } else {
+        console.log("adios");
+        this.storage.ready().then(() => {
+          this.storage.set("fav" + nightclub_id, nightclub_id);
+          this.presentToast("Nightclub added to favorites");
+        });
+      }
     });
   }
 
-   presentToast(string) {
+  presentToast(string) {
     let toast = this.toastCtrl.create({
       message: string,
-      duration: 3000
+      duration: 3000,
+      position: 'middle'
     });
     toast.present();
   }
