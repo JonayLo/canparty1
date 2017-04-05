@@ -24,8 +24,8 @@
 
 <ion-content padding>
   <ion-card *ngFor="let item of items | async">
-    <img src="{{item.img}}" (click)="nightclubTapped(item.key)"/>
-    <ion-card-content (click)="nightclubTapped(item.key)">
+    <img src="{{item.img}}"  (click)="nightclubTapped(item.key)"/>
+    <ion-card-content id="white-card" (click)="nightclubTapped(item.key)">
       <ion-card-title>
         {{item.name}}
       </ion-card-title>
@@ -33,9 +33,9 @@
         {{item.description}}
       </p>
     </ion-card-content>
-    <ion-row class="row">
+    <ion-row class="row" id="white-card">
       <ion-col class="col">
-        <button clear color="primary" ion-button small icon-left>
+        <button clear color="primary" ion-button small icon-left (click)="toggleFav(item.key)">
           <span class="button-inner">
             <ion-icon name="star" role="img" class="icon">
               Fav

@@ -18,10 +18,10 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <img src="{{ (item | async)?.img }}" />
-    <ion-card-content>
-      <ion-row class="row">
+  <ion-card> 
+    <img src="{{ (item | async)?.img }}"  />
+    <ion-card-content id="white-card">
+      <ion-row class="row" id="white-card">
         <ion-col class="col">
           <ion-icon name="locate"> {{ (item | async)?.location }}</ion-icon>
         </ion-col>
@@ -33,7 +33,7 @@
         {{ (item | async)?.description }}
       </p>
     </ion-card-content>
-    <ion-row class="row">
+    <ion-row class="row" id="white-card">
       <ion-col class="col">
         <button clear color="primary" ion-button small icon-left>
           <span class="button-inner">
@@ -68,7 +68,7 @@
     <div *ngIf="(gallery | async).length > 1 && show_gallery">
       <div *ngFor="let photo of gallery | async | slice:1">
         <ion-card>
-          <img src="{{photo.$value}}"/>
+          <img src="{{photo.$value}}" />
           <div *ngIf="(gallery | async).length > 1"></div>
         </ion-card>
       </div>

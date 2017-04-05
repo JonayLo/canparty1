@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Directive } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AngularFire, FirebaseObjectObservable, FirebaseListObservable} from 'angularfire2';
 import {AddNightclubPage} from "../add-nightclub/add-nightclub";
 
+
 @Component({
   selector: 'page-nightclub',
-  templateUrl: 'nightclub.html'
+  templateUrl: 'nightclub.html',
 })
+
+
 export class NightclubPage {
   item: FirebaseObjectObservable<any>;
   gallery: FirebaseListObservable<any>;

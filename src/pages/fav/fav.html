@@ -9,8 +9,36 @@
 
 
 <ion-content padding>
-<p>You do not have any favourite club</p>
-<p>Find One!</p>
-<button ion-button (click)="goToClubs()">Clubs</button>
-  <div>Hoasfoafa</div>
+  <div *ngIf="!favs2">
+    <p>You do not have any favourite club</p>
+    <p>Find One!</p>
+    <button ion-button (click)="goToClubs()">Clubs</button>
+  </div>
+  <div *ngIf="favs2.length > 0">
+    <ion-card *ngFor="let fav of favs2">
+    <img src="{{ (fav | async)?.img }}"  />
+    <ion-card-content id="white-card">
+      <ion-row class="row" id="white-card">
+      <ion-col class="col">
+        <button clear color="primary" ion-button small icon-left (click)="toggleFav(fav.key)">
+          <span class="button-inner">
+            <ion-icon name="star" role="img" class="icon">
+              Fav
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+      <ion-col class="col" text-right>
+        <button clear color="primary" ion-button small icon-right>
+          <span class="button-inner">
+            <ion-icon name="share-alt" role="img" class="icon">
+              Share
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+    </ion-row>
+    </ion-card-content>
+  </ion-card>
+  </div>
 </ion-content>
