@@ -6,7 +6,7 @@ import {NightclubsPage} from "../pages/nightclubs/nightclubs";
 import {NightclubPage} from "../pages/nightclub/nightclub";
 import {EventsPage} from "../pages/events/events";
 import {FavPage} from "../pages/fav/fav";
-
+import {IonicStorageModule} from "@ionic/storage"
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import {AddNightclubPage, GalleryModal} from "../pages/add-nightclub/add-nightclub";
@@ -40,7 +40,9 @@ const firebaseAuthConfig = {
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
+    IonicStorageModule.forRoot(),
     BrowserModule,
+    IonicImageViewerModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     IonicImageViewerModule

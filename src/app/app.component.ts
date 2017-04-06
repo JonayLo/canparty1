@@ -22,7 +22,8 @@ export class AppComponent {
     this.pages = [
       { title: 'Home', component: HomePage},
       { title: 'Favourites Clubs', component: FavPage},
-      { title: 'Events', component: EventsPage}
+      { title: 'Events', component: EventsPage},
+      { title: 'Nightclubs', component: NightclubsPage}
     ];
 
   }
