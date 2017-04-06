@@ -1,0 +1,58 @@
+<!--
+  Generated template for the MyNightclubs page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar  color="primary">
+    <button ion-button menuToggle left>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-row>
+      <ion-title>My Nightclubs</ion-title>
+      <button *ngIf="!(af.auth | async)?.uid" ion-button icon-only (click)="authenticationTapped()">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+      <button *ngIf="(af.auth | async)?.uid" ion-button icon-only (click)="addNightclubTapped()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let item of items | async" id="white-card">
+    <img src="{{item.img}}"  (click)="nightclubTapped(item.key)"/>
+    <ion-card-content (click)="nightclubTapped(item.key)">
+      <ion-card-title>
+        {{item.name}}
+      </ion-card-title>
+      <p>
+        {{item.description}}
+      </p>
+    </ion-card-content>
+    <ion-row class="row">
+      <ion-col class="col">
+        <button clear color="primary" ion-button small icon-left (click)="toggleFav(item.key)">
+          <span class="button-inner">
+            <ion-icon name="star" role="img" class="icon">
+              Fav
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+      <ion-col class="col" text-right>
+        <button clear color="primary" ion-button small icon-right>
+          <span class="button-inner">
+            <ion-icon name="share-alt" role="img" class="icon">
+              Share
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

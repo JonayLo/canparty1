@@ -1,10 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-import {HomePage} from '../pages/home/home';
-import {NightclubsPage} from "../pages/nightclubs/nightclubs";
-import {EventsPage} from "../pages/events/events";
-import {FavPage} from "../pages/fav/fav";
+import { HomePage } from '../pages/home/home';
+import { NightclubsPage } from "../pages/nightclubs/nightclubs";
+import { EventsPage } from "../pages/events/events";
+import { FavPage } from "../pages/fav/fav";
+import { MyNightclubsPage } from "../pages/my-nightclubs/my-nightclubs";
+import { AngularFire } from "angularfire2";
+
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +19,7 @@ export class AppComponent {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, private af: AngularFire) {
     this.initializeApp();
 
     this.pages = [
@@ -26,6 +29,10 @@ export class AppComponent {
       { title: 'Nightclubs', component: NightclubsPage}
     ];
 
+    this.af.auth.subscribe((auth) => {
+      if(auth)
+        this.pages.push({title: 'My Nightclubs', component: MyNightclubsPage});
+    });
   }
 
   initializeApp() {

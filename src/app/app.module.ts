@@ -2,16 +2,17 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AppComponent } from './app.component';
 import { HomePage} from '../pages/home/home';
-import {NightclubsPage} from "../pages/nightclubs/nightclubs";
-import {NightclubPage} from "../pages/nightclub/nightclub";
-import {EventsPage} from "../pages/events/events";
-import {FavPage} from "../pages/fav/fav";
-import {IonicStorageModule} from "@ionic/storage"
+import { NightclubsPage } from "../pages/nightclubs/nightclubs";
+import { NightclubPage } from "../pages/nightclub/nightclub";
+import { EventsPage } from "../pages/events/events";
+import { FavPage } from "../pages/fav/fav";
+import { IonicStorageModule } from "@ionic/storage"
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import {AddNightclubPage, GalleryModal} from "../pages/add-nightclub/add-nightclub";
-import {AuthenticationPage} from "../pages/authentication/authentication";
+import { AddNightclubPage, GalleryModal } from "../pages/add-nightclub/add-nightclub";
+import { AuthenticationPage } from "../pages/authentication/authentication";
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { MyNightclubsPage } from "../pages/my-nightclubs/my-nightclubs";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB_LSza8qqhf9_DoJortBhvLqqkTNNQ4LE',
@@ -36,7 +37,8 @@ const firebaseAuthConfig = {
     FavPage,
     AddNightclubPage,
     AuthenticationPage,
-    GalleryModal
+    GalleryModal,
+    MyNightclubsPage
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
@@ -57,7 +59,8 @@ const firebaseAuthConfig = {
     FavPage,
     AddNightclubPage,
     AuthenticationPage,
-    GalleryModal
+    GalleryModal,
+    MyNightclubsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
