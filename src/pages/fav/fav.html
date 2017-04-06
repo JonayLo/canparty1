@@ -9,18 +9,25 @@
 
 
 <ion-content padding>
-  <div *ngIf="!favs2">
+  <div *ngIf="favs2.length == 0">
     <p>You do not have any favourite club</p>
     <p>Find One!</p>
     <button ion-button (click)="goToClubs()">Clubs</button>
   </div>
   <div *ngIf="favs2.length > 0">
-    <ion-card *ngFor="let fav of favs2">
-    <img src="{{ (fav | async)?.img }}"  />
+      <ion-card *ngFor="let item of favs2">
+     <img src="{{ (item | async)?.img }}"   (click)="nightclubTapped(item.key)"/>
     <ion-card-content id="white-card">
-      <ion-row class="row" id="white-card">
+      <ion-card-title>
+        {{(item | async)?.name}}
+      </ion-card-title>
+      <p>
+        {{(item | async)?.description}}
+      </p>
+    </ion-card-content>
+    <ion-row class="row" id="white-card">
       <ion-col class="col">
-        <button clear color="primary" ion-button small icon-left (click)="toggleFav(fav.key)">
+        <button clear color="primary" ion-button small icon-left (click)="toggleFav(item.key)">
           <span class="button-inner">
             <ion-icon name="star" role="img" class="icon">
               Fav
@@ -38,7 +45,6 @@
         </button>
       </ion-col>
     </ion-row>
-    </ion-card-content>
   </ion-card>
   </div>
 </ion-content>

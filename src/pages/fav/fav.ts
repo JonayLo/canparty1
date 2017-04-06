@@ -13,7 +13,7 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 })
 export class FavPage {
 favs :FirebaseObjectObservable<any>;
-favs2:Observable<any>[] = [];
+favs2 = [];
   constructor(public nightclub: NightclubsPage, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public af: AngularFire) {
    
   }
@@ -28,7 +28,7 @@ favs2:Observable<any>[] = [];
   
 
   getFavoritesClubs() {
-   let temp:Observable<any>[] = [];
+   let temp = [];
    this.storage.ready().then(() => {
         this.storage.forEach((value,key,index) =>{
          this.favs = (this.af.database.object('/nightclubs/' + value));

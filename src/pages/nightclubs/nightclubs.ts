@@ -49,7 +49,6 @@ export class NightclubsPage {
       return false;
     }
     if (val == club_id) {
-      console.log("hola");
       return true;
     } else {
       return false;
@@ -65,7 +64,6 @@ export class NightclubsPage {
           return;
         });
       } else {
-        console.log("adios");
         this.storage.ready().then(() => {
           this.storage.set("fav" + nightclub_id, nightclub_id);
           this.presentToast("Nightclub added to favorites");
