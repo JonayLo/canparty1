@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import {NightclubsPage} from "../nightclubs/nightclubs";
 import {Storage} from "@ionic/storage";
 import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
@@ -13,13 +13,19 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 })
 export class FavPage {
 favs :FirebaseObjectObservable<any>;
-favs2 = [];
-  constructor(public nightclub: NightclubsPage, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public af: AngularFire) {
+favs2:Observable<any> [] = [];
+  constructor(public loaderController: LoadingController, public nightclub: NightclubsPage, public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public af: AngularFire) {
    
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
+     let loader = this.loaderController.create({
+        content: 'Accediendo a los datos. .',
+        dismissOnPageChange: false,
+      });
+      loader.present();
    this.favs2 = this.getFavoritesClubs();
+   loader.dismiss();
   }
 
   goToClubs() {
