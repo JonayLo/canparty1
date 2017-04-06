@@ -68,7 +68,9 @@
     <div *ngIf="(gallery | async).length > 1 && show_gallery">
       <div *ngFor="let photo of gallery | async | slice:1">
         <ion-card>
-          <img src="{{photo.$value}}" />
+<<<<<<<    destination:57c7f2407096ff41068ac5e271d83de26fe8693f
+          <img src="{{photo.$value}}" imageViewer />
+>>>>>>>    source:f195c213f7996e0e3572d58145333da69cb1f2db
           <div *ngIf="(gallery | async).length > 1"></div>
         </ion-card>
       </div>
