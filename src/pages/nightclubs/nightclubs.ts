@@ -18,7 +18,8 @@ import { AuthenticationPage } from "../authentication/authentication";
 })
 export class NightclubsPage {
   items: FirebaseListObservable<any[]>;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public storage: Storage, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire,
+              public storage: Storage, public toastCtrl: ToastController) {
     this.items = af.database.list('/nightclubs');
   }
 
@@ -38,7 +39,7 @@ export class NightclubsPage {
     return new Promise(resolve => {
       this.storage.ready().then(() => {
         let bol;
-        this.storage.get('fav' + club_id).then((val) => { bol = this.equal(val, club_id) ; 
+        this.storage.get('fav' + club_id).then((val) => { bol = this.equal(val, club_id) ;
         resolve(bol)});
       });
     });

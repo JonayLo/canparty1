@@ -35,7 +35,7 @@
     </ion-card-content>
     <ion-row class="row">
       <ion-col class="col">
-        <button clear color="primary" ion-button small icon-left>
+        <button clear color="primary" id="{{ (item | async)?.key }}" ion-button small icon-left (click)="toggleFav($event)">
           <span class="button-inner">
             <ion-icon name="star" role="img" class="icon">
               Fav
