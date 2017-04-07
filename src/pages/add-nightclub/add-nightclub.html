@@ -38,6 +38,10 @@
       <ion-label>Description</ion-label>
       <ion-textarea formControlName="description"></ion-textarea>
     </ion-item>
+    <ion-item>
+      <ion-label>Opening hour</ion-label>
+      <ion-datetime displayFormat="HH:mm" formControlName="openingHour"></ion-datetime>
+    </ion-item>
     <button ion-button type="submit" [disabled]="!nightclub.valid">Submit</button>
   </form>
   <button ion-button (click)="openGallery()">Gallery</button>

@@ -32,7 +32,8 @@ export class AddNightclubPage {
         description: ['', Validators.required],
         location: ['', Validators.required],
         img: ['', Validators.required],
-      });
+        openingHour: ['', Validators.required]
+      })
     } else {
       this.edit = true;
       this.firebase.object('/nightclubs/' + this.nightclub_id).take(1).subscribe(snapshot => {
@@ -41,6 +42,7 @@ export class AddNightclubPage {
           description: [snapshot.description, Validators.required],
           location: [snapshot.location, Validators.required],
           img: [snapshot.img, Validators.required],
+          openingHour: [snapshot.openingHour, Validators.required]
         });
         this.key = snapshot.key;
         this.renderImageFromURL();
@@ -73,12 +75,12 @@ export class AddNightclubPage {
     this.nightclub.controls['img'].setValue(canvas.toDataURL());
 
     this.firebase.list('/nightclubs').push({
-      "date" : "2017-1-1",
       "description" : this.nightclub.value.description,
       "img" : this.nightclub.value.img,
       "location" : this.nightclub.value.location,
       "name" : this.nightclub.value.name,
-      "user" : this.auth
+      "user" : this.auth,
+      "openingHour" : this.nightclub.value.openingHour
     }).then((item) => {
       this.firebase.object('/nightclubs/'+item.key).update({
         "key" : item.key
@@ -108,11 +110,11 @@ export class AddNightclubPage {
     this.nightclub.controls['img'].setValue(canvas.toDataURL());
 
     this.firebase.object('/nightclubs/' + this.nightclub_id).update({
-      "date" : "2017-1-1",
       "description" : this.nightclub.value.description,
       "img" : this.nightclub.value.img,
       "location" : this.nightclub.value.location,
       "name" : this.nightclub.value.name,
+      "openingHour" : this.nightclub.value.openingHour
     }).then(() => {
 
       // Update gallery
