@@ -1,13 +1,25 @@
-
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar  color="primary">
+    <button ion-button menuToggle left>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-row>
+      <ion-title>Home</ion-title>
+      <button *ngIf="!(af.auth | async)?.uid" ion-button icon-only (click)="logIn()">
+        <ion-icon name="contact"></ion-icon>
+      </button>
+    </ion-row>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+   <div  *ngFor="let item of articles | async" id="white-card" (click)=showArticle(item)>
+    <img src="{{item.header}}" />
+       <h2 text-center>{{item.tittle}}</h2>
+      <p padding>
+        {{item.preview}}
+      </p>
+  </div>
 
 </ion-content>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import {FirebaseListObservable, AngularFire} from 'angularfire2';
+import {AuthenticationPage} from '../authentication/authentication';
+import {ArticlePage} from '../article/article';
 /*
   Generated class for the Home page.
 
@@ -12,11 +14,25 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  articles: FirebaseListObservable<any[]>;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
+    this.articles =  this.af.database.list('/articles', {
+       query:{
+         limitToLast: 10      
+        }
+     });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+  }
+
+  logIn() {
+    this.navCtrl.push(AuthenticationPage);
+  }
+  
+  showArticle(item) {
+     this.navCtrl.push(ArticlePage, { article: item});
   }
 
 }

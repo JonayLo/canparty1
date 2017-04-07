@@ -14,7 +14,7 @@ import { AngularFire } from "angularfire2";
 export class AppComponent {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = NightclubsPage;
+  rootPage: any = HomePage;
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, private af: AngularFire) {

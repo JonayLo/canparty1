@@ -13,6 +13,7 @@ import { AuthenticationPage } from "../pages/authentication/authentication";
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { MapPage } from '../pages/map/map';
 import { MyNightclubsPage } from "../pages/my-nightclubs/my-nightclubs";
+import { ArticlePage } from "../pages/article/article";
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB_LSza8qqhf9_DoJortBhvLqqkTNNQ4LE',
@@ -38,7 +39,8 @@ const firebaseAuthConfig = {
     AuthenticationPage,
     GalleryModal,
     MyNightclubsPage,
-    MapPage
+    MapPage,
+    ArticlePage
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
@@ -60,7 +62,8 @@ const firebaseAuthConfig = {
     AuthenticationPage,
     GalleryModal,
     MyNightclubsPage,
-    MapPage
+    MapPage,
+    ArticlePage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
