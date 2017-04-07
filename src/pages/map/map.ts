@@ -19,7 +19,7 @@ export class MapPage {
     let nightclub_id = this.navParams.get('nightclub_id');
 
     this.af.database.object('/nightclubs/' + nightclub_id).take(1).subscribe(snapshot => {
-      this.loadMap(snapshot.lat, snapshot.lng);
+      this.loadMap(new Number(snapshot.lat), new Number(snapshot.lng));
     });
   }
 
