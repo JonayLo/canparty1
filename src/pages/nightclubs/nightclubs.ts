@@ -86,8 +86,21 @@ export class NightclubsPage {
     toast.present();
   }
 
-
   showMap(nightclub_id) {
     this.navCtrl.push(MapPage, {nightclub_id: nightclub_id});
+  }
+
+  getItems(event){
+    if(event.target.value == "") {
+      this.items = this.af.database.list('/nightclubs');
+      return;
+    }
+
+    this.items = this.af.database.list('/nightclubs', {
+      query: {
+        orderByChild: 'name',
+        equalTo: event.target.value
+      }
+    });
   }
 }

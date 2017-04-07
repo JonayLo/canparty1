@@ -23,6 +23,7 @@
 
 
 <ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-card *ngFor="let item of items | async" id="white-card">
     <img src="{{item.img}}"  (click)="nightclubTapped(item.key)"/>
     <ion-card-content (click)="nightclubTapped(item.key)">
