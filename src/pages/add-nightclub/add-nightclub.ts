@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
-import {NavController, NavParams, AlertController, ViewController, ModalController} from 'ionic-angular';
-import {isUndefined} from "ionic-angular/util/util";
+import { NavController, NavParams, AlertController, ViewController, ModalController, LoadingController } from 'ionic-angular';
+import { isUndefined } from "ionic-angular/util/util";
 import 'rxjs/add/operator/take'
 
 
@@ -19,7 +19,8 @@ export class AddNightclubPage {
   private gallery: any[];
 
   constructor( private formBuilder: FormBuilder, public af:AngularFire, public navCtrl: NavController,
-               private navParams: NavParams, public alertCtrl: AlertController, public modalCtrl: ModalController) {
+               private navParams: NavParams, public alertCtrl: AlertController, public modalCtrl: ModalController,
+               public loadingCtrl: LoadingController) {
     this.firebase = af.database;
     this.af.auth.subscribe(auth => {this.auth = auth.uid;});
 
@@ -48,6 +49,17 @@ export class AddNightclubPage {
   }
 
   logForm(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles',
+      content: 'Guardando'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 1000);
+
     if (!this.edit){
       this.createNightclub();
     } else {

@@ -28,7 +28,7 @@ export class FavPage {
   }
 
   goToClubs() {
-    this.navCtrl.push(NightclubsPage);
+    this.navCtrl.setRoot(NightclubsPage);
   }
 
 
