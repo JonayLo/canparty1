@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 import { HomePage} from '../pages/home/home';
 import { NightclubsPage } from "../pages/nightclubs/nightclubs";
 import { NightclubPage } from "../pages/nightclub/nightclub";
-import { EventsPage } from "../pages/events/events";
 import { FavPage } from "../pages/fav/fav";
 import { IonicStorageModule } from "@ionic/storage"
 import { BrowserModule } from '@angular/platform-browser';
@@ -34,7 +33,6 @@ const firebaseAuthConfig = {
     HomePage,
     NightclubsPage,
     NightclubPage,
-    EventsPage,
     FavPage,
     AddNightclubPage,
     AuthenticationPage,
@@ -57,7 +55,6 @@ const firebaseAuthConfig = {
     HomePage,
     NightclubsPage,
     NightclubPage,
-    EventsPage,
     FavPage,
     AddNightclubPage,
     AuthenticationPage,

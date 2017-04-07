@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { HomePage } from '../pages/home/home';
 import { NightclubsPage } from "../pages/nightclubs/nightclubs";
-import { EventsPage } from "../pages/events/events";
 import { FavPage } from "../pages/fav/fav";
 import { MyNightclubsPage } from "../pages/my-nightclubs/my-nightclubs";
 import { AngularFire } from "angularfire2";
@@ -25,7 +24,6 @@ export class AppComponent {
     this.pages = [
       { title: 'Home', component: HomePage},
       { title: 'Favourites Clubs', component: FavPage},
-      { title: 'Events', component: EventsPage},
       { title: 'Nightclubs', component: NightclubsPage}
     ];
 
