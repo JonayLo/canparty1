@@ -4,6 +4,7 @@ import { NightclubsPage } from "../nightclubs/nightclubs";
 import { NightclubPage } from "../nightclub/nightclub";
 import { Storage } from "@ionic/storage";
 import { AngularFire } from 'angularfire2';
+import { MapPage} from "../map/map";
 
 
 @Component({
@@ -99,5 +100,8 @@ export class FavPage {
       position: 'middle'
     });
     toast.present();
+  }
+  showMap() {
+    this.navCtrl.push(MapPage);
   }
 }

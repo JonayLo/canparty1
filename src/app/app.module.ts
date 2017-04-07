@@ -12,6 +12,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AddNightclubPage, GalleryModal } from "../pages/add-nightclub/add-nightclub";
 import { AuthenticationPage } from "../pages/authentication/authentication";
 import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { MapPage } from '../pages/map/map';
 import { MyNightclubsPage } from "../pages/my-nightclubs/my-nightclubs";
 
 export const firebaseConfig = {
@@ -38,7 +39,8 @@ const firebaseAuthConfig = {
     AddNightclubPage,
     AuthenticationPage,
     GalleryModal,
-    MyNightclubsPage
+    MyNightclubsPage,
+    MapPage
   ],
   imports: [
     IonicModule.forRoot(AppComponent),
@@ -60,7 +62,8 @@ const firebaseAuthConfig = {
     AddNightclubPage,
     AuthenticationPage,
     GalleryModal,
-    MyNightclubsPage
+    MyNightclubsPage,
+    MapPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

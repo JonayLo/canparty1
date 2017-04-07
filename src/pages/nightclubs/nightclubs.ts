@@ -4,7 +4,9 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AddNightclubPage } from "../add-nightclub/add-nightclub";
 import { NightclubPage } from "../nightclub/nightclub";
 import { Storage } from "@ionic/storage";
+import { Geolocation, GoogleMapsEvent, GoogleMapsLatLng, GoogleMap } from 'ionic-native';
 import { AuthenticationPage } from "../authentication/authentication";
+import { MapPage } from  "../map/map";
 
 /*
   Generated class for the Nightclubs page.
@@ -19,7 +21,7 @@ import { AuthenticationPage } from "../authentication/authentication";
 export class NightclubsPage {
   items: FirebaseListObservable<any[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire,
-              public storage: Storage, public toastCtrl: ToastController) {
+    public storage: Storage, public toastCtrl: ToastController) {
     this.items = af.database.list('/nightclubs');
   }
 
@@ -39,8 +41,10 @@ export class NightclubsPage {
     return new Promise(resolve => {
       this.storage.ready().then(() => {
         let bol;
-        this.storage.get('fav' + club_id).then((val) => { bol = this.equal(val, club_id) ;
-        resolve(bol)});
+        this.storage.get('fav' + club_id).then((val) => {
+          bol = this.equal(val, club_id);
+          resolve(bol)
+        });
       });
     });
   }
@@ -80,5 +84,10 @@ export class NightclubsPage {
       position: 'middle'
     });
     toast.present();
+  }
+  
+
+  showMap() {
+    this.navCtrl.push(MapPage, {nightclub: this.navParams.get('item')});
   }
 }

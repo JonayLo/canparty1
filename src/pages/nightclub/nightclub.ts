@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { AddNightclubPage } from "../add-nightclub/add-nightclub";
+import { MapPage} from "../map/map";
 import { Storage } from "@ionic/storage";
 
 
@@ -82,6 +83,9 @@ export class NightclubPage {
       position: 'middle'
     });
     toast.present();
+  }
+  showMap() {
+    this.navCtrl.push(MapPage);
   }
 
 }
