@@ -5,11 +5,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
+  <ion-content id="white-card">
+    <ion-list> 
+      <ion-list-header id="white-card">Navigation</ion-list-header>
+      <button menuClose id="menubutton" ion-item *ngFor="let p of pages" (click)="openPage(p)">{{p.title}}</button>
+      <button menuClose id="menubutton" ion-item *ngIf="(af.auth | async)?.uid" (click)="logout()">Logout</button>
     </ion-list>
   </ion-content>
 

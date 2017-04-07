@@ -2,7 +2,15 @@
 
 
 #white-card {
+    padding:0;
     background:white;
+  &  #menubutton {
+       padding:0;
+       background:white;
+        :hover{
+            background:lightblue;
+        }
+    }
 }
 
 // App Global Sass
