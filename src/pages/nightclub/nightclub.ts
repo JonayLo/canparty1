@@ -85,7 +85,7 @@ export class NightclubPage {
     toast.present();
   }
   showMap() {
-    this.navCtrl.push(MapPage);
+    this.navCtrl.push(MapPage, {"nightclub_id" : this.nightclub_id});
   }
 
 }

@@ -101,7 +101,9 @@ export class FavPage {
     });
     toast.present();
   }
-  showMap() {
-    this.navCtrl.push(MapPage);
+  showMap(event) {
+    let nightclub_id = event.currentTarget.id;
+
+    this.navCtrl.push(MapPage, {"nightclub_id": nightclub_id});
   }
 }

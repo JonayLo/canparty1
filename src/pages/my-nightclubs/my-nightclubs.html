@@ -43,6 +43,15 @@
           </span>
         </button>
       </ion-col>
+      <ion-col class="col">
+        <button clear color="primary" ion-button small icon-right (click)="showMap(item.key)">
+          <span class="button-inner">
+            <ion-icon name="map" role="img" class="icon">
+              Map
+            </ion-icon>
+          </span>
+        </button>
+      </ion-col>
       <ion-col class="col" text-right>
         <button clear color="primary" ion-button small icon-right>
           <span class="button-inner">
@@ -54,5 +63,5 @@
       </ion-col>
     </ion-row>
   </ion-card>
-
+  <div id="map"></div>
 </ion-content>

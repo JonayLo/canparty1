@@ -40,7 +40,7 @@
             </div>
           </ion-col>
           <ion-col class="col">
-        <button clear color="primary" ion-button small icon-right (click)="showMap()">
+        <button clear color="primary" id="{{ (item | async)?.key }}" ion-button small icon-right (click)="showMap($event)">
           <span class="button-inner">
             <ion-icon name="map" role="img" class="icon">
               Map

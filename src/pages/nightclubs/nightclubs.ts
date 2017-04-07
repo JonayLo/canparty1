@@ -85,9 +85,9 @@ export class NightclubsPage {
     });
     toast.present();
   }
-  
 
-  showMap() {
-    this.navCtrl.push(MapPage, {nightclub: this.navParams.get('item')});
+
+  showMap(nightclub_id) {
+    this.navCtrl.push(MapPage, {nightclub_id: nightclub_id});
   }
 }
